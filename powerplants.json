@@ -1,0 +1,796 @@
+{
+	"gas": [{
+			"no": "1",
+			"typ": "DEU Gas",
+			"price": "96.41",
+			"volume": "360",
+			"procentsuma": "0.56"
+		},
+		{
+			"no": "2",
+			"typ": "DEU Gas",
+			"price": "97.02",
+			"volume": "273",
+			"procentsuma": "0.99"
+		},
+		{
+			"no": "3",
+			"typ": "DEU Gas",
+			"price": "97.49",
+			"volume": "543",
+			"procentsuma": "1.84"
+		},
+		{
+			"no": "4",
+			"typ": "DEU Gas",
+			"price": "98.28",
+			"volume": "558",
+			"procentsuma": "2.71"
+		},
+		{
+			"no": "5",
+			"typ": "DEU Gas",
+			"price": "100.23",
+			"volume": "564",
+			"procentsuma": "3.59"
+		},
+		{
+			"no": "6",
+			"typ": "DEU Gas",
+			"price": "100.23",
+			"volume": "369",
+			"procentsuma": "4.17"
+		},
+		{
+			"no": "7",
+			"typ": "DEU Gas",
+			"price": "100.23",
+			"volume": "357",
+			"procentsuma": "4.73"
+		},
+		{
+			"no": "8",
+			"typ": "DEU Gas",
+			"price": "100.23",
+			"volume": "253",
+			"procentsuma": "5.12"
+		},
+		{
+			"no": "9",
+			"typ": "DEU Gas",
+			"price": "100.23",
+			"volume": "160",
+			"procentsuma": "5.37"
+		},
+		{
+			"no": "10",
+			"typ": "DEU Gas",
+			"price": "100.23",
+			"volume": "450",
+			"procentsuma": "6.07"
+		},
+		{
+			"no": "11",
+			"typ": "DEU Gas",
+			"price": "100.23",
+			"volume": "400",
+			"procentsuma": "6.70"
+		},
+		{
+			"no": "12",
+			"typ": "DEU Gas",
+			"price": "100.23",
+			"volume": "516",
+			"procentsuma": "7.50"
+		},
+		{
+			"no": "13",
+			"typ": "DEU Gas",
+			"price": "100.56",
+			"volume": "51",
+			"procentsuma": "7.58"
+		},
+		{
+			"no": "14",
+			"typ": "DEU Gas",
+			"price": "101.3",
+			"volume": "266",
+			"procentsuma": "8.00"
+		},
+		{
+			"no": "15",
+			"typ": "DEU Gas",
+			"price": "103.58",
+			"volume": "403",
+			"procentsuma": "8.63"
+		},
+		{
+			"no": "16",
+			"typ": "DEU Gas",
+			"price": "103.66",
+			"volume": "168",
+			"procentsuma": "8.89"
+		},
+		{
+			"no": "17",
+			"typ": "DEU Gas",
+			"price": "103.66",
+			"volume": "64",
+			"procentsuma": "8.99"
+		},
+		{
+			"no": "18",
+			"typ": "DEU Gas",
+			"price": "103.66",
+			"volume": "474",
+			"procentsuma": "9.73"
+		},
+		{
+			"no": "19",
+			"typ": "DEU Gas",
+			"price": "103.66",
+			"volume": "234",
+			"procentsuma": "10.10"
+		},
+		{
+			"no": "20",
+			"typ": "DEU Gas",
+			"price": "103.66",
+			"volume": "187",
+			"procentsuma": "10.39"
+		},
+		{
+			"no": "21",
+			"typ": "DEU Gas",
+			"price": "103.66",
+			"volume": "641",
+			"procentsuma": "11.39"
+		},
+		{
+			"no": "22",
+			"typ": "DEU Gas",
+			"price": "103.66",
+			"volume": "456",
+			"procentsuma": "12.10"
+		},
+		{
+			"no": "23",
+			"typ": "DEU Gas",
+			"price": "104.02",
+			"volume": "93",
+			"procentsuma": "12.25"
+		},
+		{
+			"no": "24",
+			"typ": "DEU Gas",
+			"price": "104.74",
+			"volume": "367",
+			"procentsuma": "12.82"
+		},
+		{
+			"no": "25",
+			"typ": "DEU Gas",
+			"price": "105.28",
+			"volume": "64",
+			"procentsuma": "12.92"
+		},
+		{
+			"no": "26",
+			"typ": "DEU Gas",
+			"price": "106.02",
+			"volume": "72",
+			"procentsuma": "13.04"
+		},
+		{
+			"no": "27",
+			"typ": "DEU Gas",
+			"price": "107.92",
+			"volume": "107",
+			"procentsuma": "13.20"
+		},
+		{
+			"no": "28",
+			"typ": "DEU Gas",
+			"price": "108.31",
+			"volume": "102",
+			"procentsuma": "13.36"
+		},
+		{
+			"no": "29",
+			"typ": "DEU Gas",
+			"price": "108.96",
+			"volume": "325",
+			"procentsuma": "13.87"
+		},
+		{
+			"no": "30",
+			"typ": "DEU Gas",
+			"price": "109.69",
+			"volume": "69",
+			"procentsuma": "13.98"
+		},
+		{
+			"no": "31",
+			"typ": "DEU Gas",
+			"price": "110.7",
+			"volume": "144",
+			"procentsuma": "14.20"
+		},
+		{
+			"no": "32",
+			"typ": "DEU Gas",
+			"price": "111.94",
+			"volume": "140",
+			"procentsuma": "14.42"
+		},
+		{
+			"no": "33",
+			"typ": "DEU Gas",
+			"price": "125.3",
+			"volume": "305",
+			"procentsuma": "14.90"
+		},
+		{
+			"no": "34",
+			"typ": "DEU Gas",
+			"price": "125.3",
+			"volume": "305",
+			"procentsuma": "15.37"
+		},
+		{
+			"no": "35",
+			"typ": "DEU Gas",
+			"price": "128.55",
+			"volume": "20",
+			"procentsuma": "15.41"
+		},
+		{
+			"no": "36",
+			"typ": "DEU Gas",
+			"price": "129.39",
+			"volume": "130",
+			"procentsuma": "15.61"
+		},
+		{
+			"no": "37",
+			"typ": "DEU Gas",
+			"price": "130.81",
+			"volume": "13",
+			"procentsuma": "15.63"
+		},
+		{
+			"no": "38",
+			"typ": "DEU Gas",
+			"price": "134.04",
+			"volume": "299",
+			"procentsuma": "16.10"
+		},
+		{
+			"no": "39",
+			"typ": "DEU Gas",
+			"price": "135.59",
+			"volume": "268",
+			"procentsuma": "16.52"
+		},
+		{
+			"no": "40",
+			"typ": "DEU Gas",
+			"price": "136.84",
+			"volume": "315",
+			"procentsuma": "17.01"
+		},
+		{
+			"no": "41",
+			"typ": "DEU Gas",
+			"price": "138.12",
+			"volume": "107",
+			"procentsuma": "17.17"
+		},
+		{
+			"no": "42",
+			"typ": "DEU Gas",
+			"price": "140.75",
+			"volume": "105",
+			"procentsuma": "17.34"
+		},
+		{
+			"no": "43",
+			"typ": "DEU Gas",
+			"price": "143.48",
+			"volume": "96",
+			"procentsuma": "17.49"
+		},
+		{
+			"no": "44",
+			"typ": "DEU Gas",
+			"price": "146.33",
+			"volume": "39",
+			"procentsuma": "17.55"
+		},
+		{
+			"no": "45",
+			"typ": "DEU Gas",
+			"price": "149.29",
+			"volume": "79",
+			"procentsuma": "17.67"
+		},
+		{
+			"no": "46",
+			"typ": "DEU Gas",
+			"price": "150.82",
+			"volume": "50",
+			"procentsuma": "17.75"
+		},
+		{
+			"no": "47",
+			"typ": "DEU Gas",
+			"price": "152.38",
+			"volume": "14",
+			"procentsuma": "17.77"
+		},
+		{
+			"no": "48",
+			"typ": "DEU Gas",
+			"price": "153.97",
+			"volume": "45",
+			"procentsuma": "17.84"
+		},
+		{
+			"no": "49",
+			"typ": "DEU Gas",
+			"price": "155.6",
+			"volume": "38",
+			"procentsuma": "17.90"
+		},
+		{
+			"no": "50",
+			"typ": "DEU Gas",
+			"price": "167.6",
+			"volume": "106",
+			"procentsuma": "18.07"
+		},
+		{
+			"no": "51",
+			"typ": "DEU Gas",
+			"price": "176.18",
+			"volume": "10",
+			"procentsuma": "18.08"
+		},
+		{
+			"no": "52",
+			"typ": "DEU Gas",
+			"price": "182.79",
+			"volume": "206",
+			"procentsuma": "18.40"
+		},
+		{
+			"no": "53",
+			"typ": "DEU Gas",
+			"price": "185.12",
+			"volume": "553",
+			"procentsuma": "19.27"
+		},
+		{
+			"no": "54",
+			"typ": "DEU Gas",
+			"price": "187.5",
+			"volume": "195",
+			"procentsuma": "19.57"
+		},
+		{
+			"no": "55",
+			"typ": "DEU Gas",
+			"price": "189.94",
+			"volume": "400",
+			"procentsuma": "20.20"
+		},
+		{
+			"no": "56",
+			"typ": "DEU Gas",
+			"price": "195.03",
+			"volume": "246",
+			"procentsuma": "20.58"
+		},
+		{
+			"no": "57",
+			"typ": "DEU Gas",
+			"price": "197.69",
+			"volume": "15",
+			"procentsuma": "20.60"
+		},
+		{
+			"no": "58",
+			"typ": "DEU Gas",
+			"price": "200.41",
+			"volume": "13",
+			"procentsuma": "20.62"
+		},
+		{
+			"no": "59",
+			"typ": "DEU Gas",
+			"price": "204.65",
+			"volume": "30",
+			"procentsuma": "20.67"
+		},
+		{
+			"no": "60",
+			"typ": "DEU Gas",
+			"price": "218.53",
+			"volume": "38",
+			"procentsuma": "20.73"
+		},
+		{
+			"no": "61",
+			"typ": "DEU Gas",
+			"price": "221.88",
+			"volume": "36",
+			"procentsuma": "20.79"
+		},
+		{
+			"no": "62",
+			"typ": "DEU Gas",
+			"price": "228.91",
+			"volume": "134",
+			"procentsuma": "21.00"
+		}
+	],
+	"coal": [{
+			"no": "6",
+			"typ": "DEU Lignite",
+			"price": "88.3",
+			"volume": "404",
+			"procentsuma": "0.63"
+		},
+		{
+			"no": "7",
+			"typ": "DEU Lignite",
+			"price": "89.9",
+			"volume": "681",
+			"procentsuma": "1.7"
+		},
+		{
+			"no": "8",
+			"typ": "DEU Lignite",
+			"price": "89.9",
+			"volume": "681",
+			"procentsuma": "2.76"
+		},
+		{
+			"no": "9",
+			"typ": "DEU Lignite",
+			"price": "90.31",
+			"volume": "594",
+			"procentsuma": "3.69"
+		},
+		{
+			"no": "10",
+			"typ": "DEU Lignite",
+			"price": "91.56",
+			"volume": "573",
+			"procentsuma": "4.58"
+		},
+		{
+			"no": "11",
+			"typ": "DEU Lignite",
+			"price": "91.56",
+			"volume": "573",
+			"procentsuma": "5.48"
+		},
+		{
+			"no": "12",
+			"typ": "DEU Coal",
+			"price": "92.8",
+			"volume": "508",
+			"procentsuma": "6.27"
+		},
+		{
+			"no": "13",
+			"typ": "DEU Coal",
+			"price": "92.8",
+			"volume": "437",
+			"procentsuma": "6.95"
+		},
+		{
+			"no": "14",
+			"typ": "DEU Coal",
+			"price": "94.39",
+			"volume": "540",
+			"procentsuma": "7.8"
+		},
+		{
+			"no": "15",
+			"typ": "DEU Coal",
+			"price": "94.76",
+			"volume": "636",
+			"procentsuma": "8.79"
+		},
+		{
+			"no": "16",
+			"typ": "DEU Coal",
+			"price": "94.76",
+			"volume": "450",
+			"procentsuma": "9.49"
+		},
+		{
+			"no": "17",
+			"typ": "DEU Coal",
+			"price": "94.76",
+			"volume": "437",
+			"procentsuma": "10.18"
+		},
+		{
+			"no": "18",
+			"typ": "DEU Coal",
+			"price": "94.76",
+			"volume": "147",
+			"procentsuma": "10.41"
+		},
+		{
+			"no": "20",
+			"typ": "DEU Lignite",
+			"price": "96.46",
+			"volume": "485",
+			"procentsuma": "11.17"
+		},
+		{
+			"no": "21",
+			"typ": "DEU Lignite",
+			"price": "96.69",
+			"volume": "485",
+			"procentsuma": "11.92"
+		},
+		{
+			"no": "22",
+			"typ": "DEU Coal",
+			"price": "96.82",
+			"volume": "191",
+			"procentsuma": "12.22"
+		},
+		{
+			"no": "25",
+			"typ": "DEU Coal",
+			"price": "97.67",
+			"volume": "202",
+			"procentsuma": "12.54"
+		},
+		{
+			"no": "27",
+			"typ": "DEU Coal",
+			"price": "98.31",
+			"volume": "285",
+			"procentsuma": "12.98"
+		},
+		{
+			"no": "28",
+			"typ": "DEU Coal",
+			"price": "99.41",
+			"volume": "310",
+			"procentsuma": "13.47"
+		},
+		{
+			"no": "29",
+			"typ": "DEU Coal",
+			"price": "100.08",
+			"volume": "308",
+			"procentsuma": "13.95"
+		},
+		{
+			"no": "38",
+			"typ": "DEU Coal",
+			"price": "100.31",
+			"volume": "262",
+			"procentsuma": "14.36"
+		},
+		{
+			"no": "39",
+			"typ": "DEU Coal",
+			"price": "100.4",
+			"volume": "531",
+			"procentsuma": "15.19"
+		},
+		{
+			"no": "42",
+			"typ": "DEU Lignite",
+			"price": "101.66",
+			"volume": "579",
+			"procentsuma": "16.09"
+		},
+		{
+			"no": "43",
+			"typ": "DEU Coal",
+			"price": "103.34",
+			"volume": "424",
+			"procentsuma": "16.76"
+		},
+		{
+			"no": "52",
+			"typ": "DEU Lignite",
+			"price": "103.8",
+			"volume": "404",
+			"procentsuma": "17.39"
+		},
+		{
+			"no": "54",
+			"typ": "DEU Lignite",
+			"price": "104.07",
+			"volume": "411",
+			"procentsuma": "18.03"
+		},
+		{
+			"no": "55",
+			"typ": "DEU Lignite",
+			"price": "104.35",
+			"volume": "321",
+			"procentsuma": "18.53"
+		},
+		{
+			"no": "56",
+			"typ": "DEU Coal",
+			"price": "104.4",
+			"volume": "276",
+			"procentsuma": "18.96"
+		},
+		{
+			"no": "57",
+			"typ": "DEU Lignite",
+			"price": "104.63",
+			"volume": "424",
+			"procentsuma": "19.62"
+		},
+		{
+			"no": "58",
+			"typ": "DEU Lignite",
+			"price": "104.63",
+			"volume": "321",
+			"procentsuma": "20.13"
+		},
+		{
+			"no": "60",
+			"typ": "DEU Lignite",
+			"price": "105.18",
+			"volume": "321",
+			"procentsuma": "20.63"
+		},
+		{
+			"no": "61",
+			"typ": "DEU Lignite",
+			"price": "105.18",
+			"volume": "424",
+			"procentsuma": "21.29"
+		},
+		{
+			"no": "63",
+			"typ": "DEU Coal",
+			"price": "105.28",
+			"volume": "187",
+			"procentsuma": "21.58"
+		},
+		{
+			"no": "64",
+			"typ": "DEU Lignite",
+			"price": "105.47",
+			"volume": "319",
+			"procentsuma": "22.08"
+		},
+		{
+			"no": "65",
+			"typ": "DEU Lignite",
+			"price": "105.75",
+			"volume": "321",
+			"procentsuma": "22.58"
+		},
+		{
+			"no": "67",
+			"typ": "DEU Lignite",
+			"price": "106.03",
+			"volume": "321",
+			"procentsuma": "23.09"
+		},
+		{
+			"no": "68",
+			"typ": "DEU Coal",
+			"price": "106.06",
+			"volume": "469",
+			"procentsuma": "23.82"
+		},
+		{
+			"no": "69",
+			"typ": "DEU Coal",
+			"price": "106.06",
+			"volume": "201",
+			"procentsuma": "24.13"
+		},
+		{
+			"no": "70",
+			"typ": "DEU Coal",
+			"price": "106.06",
+			"volume": "625",
+			"procentsuma": "25.11"
+		},
+		{
+			"no": "71",
+			"typ": "DEU Coal",
+			"price": "106.57",
+			"volume": "305",
+			"procentsuma": "25.58"
+		},
+		{
+			"no": "72",
+			"typ": "DEU Coal",
+			"price": "107.61",
+			"volume": "20",
+			"procentsuma": "25.61"
+		},
+		{
+			"no": "75",
+			"typ": "DEU Lignite",
+			"price": "108.36",
+			"volume": "20",
+			"procentsuma": "25.64"
+		},
+		{
+			"no": "77",
+			"typ": "DEU Coal",
+			"price": "109.2",
+			"volume": "257",
+			"procentsuma": "26.05"
+		},
+		{
+			"no": "79",
+			"typ": "DEU Lignite",
+			"price": "110.22",
+			"volume": "60",
+			"procentsuma": "26.14"
+		},
+		{
+			"no": "82",
+			"typ": "DEU Lignite",
+			"price": "112.7",
+			"volume": "206",
+			"procentsuma": "26.46"
+		},
+		{
+			"no": "83",
+			"typ": "DEU Coal",
+			"price": "120.92",
+			"volume": "66",
+			"procentsuma": "26.57"
+		},
+		{
+			"no": "86",
+			"typ": "DEU Coal",
+			"price": "125.62",
+			"volume": "278",
+			"procentsuma": "27.00"
+		}
+	],
+	"nuclear": [
+		{
+			"no": "1",
+			"typ": "DEU Nuclear",
+			"price": "15"
+		}
+	],
+	"oze": [
+		{
+			"no": "1",
+			"typ": "DEU OZE",
+			"price": "0"
+		},
+		{
+			"no": "2",
+			"typ": "DEU OZE",
+			"price": "0"
+		},
+		{
+			"no": "3",
+			"typ": "DEU OZE",
+			"price": "0"
+		},
+		{
+			"no": "4",
+			"typ": "DEU OZE",
+			"price": "0"
+		}
+	]
+}
