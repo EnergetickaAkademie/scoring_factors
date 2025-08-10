@@ -17,6 +17,25 @@ class MeritOrder:
 		self.productions = np.array(productions)
 		self.total_consumption = total_consumption
 		self.sorted_productions = np.array(sorted(self.productions, key = lambda x: self.prices[x[0]]))
+		self.co2eq = {
+			Power.COAL: 1,
+			Power.GAS: 0.5,
+			Power.NUCLEAR: 0,
+			Power.WATER: 0,
+			Power.WATER_STORAGE: 0,
+			Power.WIND: 0,
+			Power.PHOTOVOLTAIC: 0,
+		}
+
+		self.derating = {
+			Power.COAL: 87.9,
+			Power.GAS: 95,
+			Power.NUCLEAR: 92.1,
+			Power.WATER: 41,
+			Power.WATER_STORAGE: 41,
+			Power.WIND: 7.3,
+			Power.PHOTOVOLTAIC: 2.7,
+		}
 
 	def getPrice(self):
 		'''Get the current price of power in EUR/MWh, by ordering the powerplant according to the merit order, and getting the lowest price that satisfies the total consumption.'''
@@ -68,6 +87,60 @@ class MeritOrder:
 				total += pp_selling_cost - pp_operating_cost #profit for powerplant
 
 		return total
+	
+	def getReleasedCO2(self):
+		'''Get the amount of released CO2 eq. (in tonnes).'''
+
+		cmsm = np.cumsum(self.sorted_productions[:, 1])
+
+		total = 0
+
+		for idx, el in enumerate(cmsm):
+			if el >= self.total_consumption:
+				pp_type, _ = self.sorted_productions[idx]
+
+				production = self.total_consumption - cmsm[idx - 1] #the previous cumsum element
+
+				total += production * self.co2eq[pp_type]
+
+				break
+
+			else:
+				pp_type, pp_power = self.sorted_productions[idx]
+
+				total += pp_power * self.co2eq[pp_type]
+
+		return total
+	
+	def getGridStability(self):
+		'''Get the grid stability coefficient.'''
+
+		if self.total_consumption <= 0:
+			return 100.0
+
+		cmsm = np.cumsum(self.sorted_productions[:, 1])
+		weighted_stability_sum = 0
+
+		previous_sum = 0
+
+		for idx, el in enumerate(cmsm):
+			if el >= self.total_consumption:
+				pp_type, _ = self.sorted_productions[idx]
+				
+				production_from_this_plant = self.total_consumption - previous_sum
+				
+				weighted_stability_sum += production_from_this_plant * self.derating[pp_type]
+				
+				break
+			
+			else:
+				pp_type, pp_power = self.sorted_productions[idx]
+				
+				weighted_stability_sum += pp_power * self.derating[pp_type]
+
+				previous_sum = el
+				
+		return weighted_stability_sum / self.total_consumption
 
 
 if __name__ == "__main__":
@@ -91,8 +164,12 @@ if __name__ == "__main__":
 		(Power.PHOTOVOLTAIC, 50),
 	]
 	
-	mo = MeritOrder(prices, productions, 1001)
+	total_consumption = 1201
+
+	mo = MeritOrder(prices, productions, total_consumption)
 
 	print(f"price: {mo.getPrice()} EUR/MWh")
 	print(f"cost: {mo.getTotalCost()} EUR")
 	print(f"profit: {mo.getTotalProfit()} EUR")
+	print(f"emissions: {mo.getReleasedCO2()} t CO2eq.")
+	print(f"stability: {mo.getGridStability()}")
