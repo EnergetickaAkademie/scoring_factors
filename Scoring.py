@@ -3,125 +3,219 @@ from MeritOrder import MeritOrder, Power
 from typing import List, Tuple, Dict
 import numpy as np
 import json
+from copy import deepcopy
 
-POPULARITY_PER_MWH = 0.5
-BLACKOUT_OFFSET = 50
-BLACKOUT_PENALTY = 50
-SCORE_OFFSET = 248.2 #add to each score, to not reach 0
+prices = {
+	Power.COAL: 101,
+	Power.GAS: 132,
+	Power.NUCLEAR: 15,
+	Power.WATER: 0,
+	Power.WATER_STORAGE: 0,
+	Power.WIND: 0,
+	Power.PHOTOVOLTAIC: 0,
+	Power.BATTERY: 0,
+}
 
-def calculate_final_scores(history: List[dict], building_consumptions: Dict[str, float]):
-	"""
-	Calculates final scores for all teams based on game history and building data.
-	All scores have SCORE_OFFSET added as a base value.
+co2eq = {
+	Power.COAL: 1,
+	Power.GAS: 0.5,
+	Power.NUCLEAR: 0,
+	Power.WATER: 0,
+	Power.WATER_STORAGE: 0,
+	Power.WIND: 0,
+	Power.PHOTOVOLTAIC: 0,
+	Power.BATTERY: 0,
+}
+
+BALANCE_CUTOFF_PERCENT = 1 #percent
+
+MAX_POPULARITY_MW = 5210
+
+def get_team_stats(history):
+	team_stats = defaultdict()
+
+	for t in history[0]:
+		team_stats[t] = dict()
+		team_stats[t]["productions"] = []
+		team_stats[t]["consumptions"] = []
 	
-	Args:
-		history: List of rounds with team production/consumption data
-		building_consumptions: Dictionary mapping team_name to total building consumption (MW)
-	"""
+	for r in history: #for each round
+		for team in r:
+			team_stats[team]["productions"].append(r[team]["productions"])
+			team_stats[team]["consumptions"].append(r[team]["total_consumption"])
 
-	raw_metrics = defaultdict(lambda: {
-		'total_co2': 0,
-		'total_profit': 0,
-		'round_stabilities': [],
-		'round_popularities': []
-	})
+	return team_stats
+
+def get_last_building_consumption(team_stats, team):
+	return team_stats[team]["consumptions"][-1]
+
+def get_num_rounds(history):
+	return len(history)
+
+def get_teams(history):
+	return list(history[0].keys())
+
+def get_total_consumption(team_stats, team):
+	return np.sum(team_stats[team]["consumptions"])
+
+def get_min_co2():
+	return 0
+
+def get_max_co2(team_stats, team):
+	total_cons = get_total_consumption(team_stats, team)
+	return co2eq[Power.COAL] * total_cons
+
+def get_co2(team_stats, team):
+	consumptions = team_stats[team]["consumptions"]
+	productions = team_stats[team]["productions"]
+
+	co2 = []
+
+	for (c, p) in zip(consumptions, productions):
+		mo = MeritOrder(prices, p, c)
+		co2.append(mo.getReleasedCO2())
+
+	return np.sum(co2)
+
+def get_ecology_score(team_stats, team):
+	min_co2 = get_min_co2()
+	max_co2 = get_max_co2(team_stats, team)
+	co2 = get_co2(team_stats, team)
+
+	if max_co2 == min_co2:
+		return 100.0
 	
-	round_details = []
-	prices = {
-		Power.COAL: 101, Power.GAS: 132, Power.NUCLEAR: 15,
-		Power.WATER: 0, Power.WATER_STORAGE: 0, 
-		Power.WIND: 0, Power.PHOTOVOLTAIC: 0,
+	score = 100 * (1 - (co2 - min_co2) / (max_co2 - min_co2))
+
+	return max(0, min(100, score))
+
+def get_max_price(team_stats, team):
+	total_cons = get_total_consumption(team_stats, team)
+	return prices[Power.GAS] * total_cons
+
+def get_expenses(team_stats, team):
+	consumptions = team_stats[team]["consumptions"]
+	productions = team_stats[team]["productions"]
+
+	expenses = []
+
+	for (c, p) in zip(consumptions, productions):
+		mo = MeritOrder(prices, p, c)
+		expenses.append(mo.getTotalExpenses())
+
+	return np.sum(expenses)
+
+def get_min_price():
+	return 0
+
+def get_finances_score(team_stats, team):
+	min_exp = get_min_price()
+	max_exp = get_max_price(team_stats, team)
+	exp = get_expenses(team_stats, team)
+
+	if max_exp == min_exp:
+		return 100.0
+	
+	score = 100 * (1 - (exp - min_exp) / (max_exp - min_exp))
+
+	return max(0, min(100, score))
+
+def get_prod_sums(prod):
+	res = []
+	
+	for p in prod:
+		res.append(sum(x for _,x in p))
+
+	return res
+
+def get_prod_diffs(team_stats, team):
+	consumptions = np.array(team_stats[team]["consumptions"])
+	productions = np.array(get_prod_sums(team_stats[team]["productions"]))
+
+	return (consumptions - productions), consumptions, productions
+
+def get_balance(team_stats, team, num_rounds):
+	pd, c, p = get_prod_diffs(team_stats, team)
+
+	one_round = 1 / num_rounds
+
+	one_perc = []
+
+	for r in c:
+		one_perc.append(BALANCE_CUTOFF_PERCENT * 0.01 * r)
+
+	balance_stats = []
+
+	for pdif, op in zip(pd, one_perc):
+		if pdif == 0:
+			balance_stats.append(one_round)
+		
+		elif abs(pdif) > op:
+			balance_stats.append(0)
+
+		else:
+			err = (abs(pdif) / op) * one_round if op != 0 else 0
+
+			balance_stats.append(err)
+
+		#print(f"op: {op}, abspdif: {abs(pdif)}")
+
+	#print(f"bs: {balance_stats}")
+
+	return balance_stats
+
+def get_balance_score(team_stats, team, num_rounds):
+	bal = get_balance(team_stats, team, num_rounds)
+
+	return np.sum(bal)
+
+def get_max_building_popularity():
+	return MAX_POPULARITY_MW
+
+def get_min_building_popularity():
+	return 0
+
+def get_building_popularity(team_stats, team):
+	min_pop = get_min_building_popularity()
+	max_pop = get_max_building_popularity()
+
+	pop = get_total_consumption(team_stats, team)
+
+	if max_pop == min_pop:
+		return 100.0
+
+	score = 100 * (pop - min_pop) / (max_pop - min_pop)
+
+	return max(0, min(100, score))
+
+def get_scores(team_stats, team, num_rounds):
+	emx = get_balance_score(team_stats, team, num_rounds) * 100
+	fin = get_finances_score(team_stats, team)
+	eco = get_ecology_score(team_stats, team)
+	pop = (emx + fin + eco + 2 * get_building_popularity(team_stats, team)) / 5 #0 - 100
+	
+	return {
+		"emx" : round(emx, 2),
+		"fin" : round(fin, 2),
+		"eco" : round(eco, 2),
+		"pop" : round(pop, 2),
 	}
 
-	for round_data in history:
-		current_round_details = {}
-		for team_name, data in round_data.items():
-			mo = MeritOrder(prices, data['productions'], data['total_consumption'])
-			
-			raw_metrics[team_name]['total_co2'] += mo.getReleasedCO2()
-			raw_metrics[team_name]['total_profit'] += mo.getTotalProfit()
-			
-			total_prod = sum(p[1] for p in data['productions'])
-			consumption = data['total_consumption']
-			
-			if abs(total_prod - consumption) > BLACKOUT_OFFSET:
-				raw_metrics[team_name]['round_stabilities'].append(BLACKOUT_PENALTY)
-			else:
-				raw_metrics[team_name]['round_stabilities'].append(mo.getGridStability())
+def calculate_final_scores(history):
+	ts = get_team_stats(history)
+	teams = get_teams(history)
 
-			current_round_details[team_name] = {
-				'price': mo.getPrice(),
-				'consumption': consumption
-			}
-		round_details.append(current_round_details)
+	num_rounds = get_num_rounds(history)
 
+	scores = dict()
 
-	for round_data in round_details:
-		prices = [d['price'] for d in round_data.values()]
-		consumptions = [d['consumption'] for d in round_data.values()]
-		
-		min_price, max_price = min(prices), max(prices)
-		min_cons, max_cons = min(consumptions), max(consumptions)
-		
-		for team, data in round_data.items():
+	for t in teams:
+		scores[t] = get_scores(ts, t, num_rounds)
 
-			price_merit = (max_price - data['price']) / (max_price - min_price) \
-				if max_price > min_price else 0.5
-				
-			growth_merit = (data['consumption'] - min_cons) / (max_cons - min_cons) \
-				if max_cons > min_cons else 0.5
-				
-			raw_metrics[team]['round_popularities'].append(
-				0.5 * price_merit + 0.5 * growth_merit
-			)
-
-	final_scores = {}
-	teams = list(raw_metrics.keys())
-	
-	def apply_offset(score):
-		"""Adds SCORE_OFFSET to the calculated score"""
-		return score + SCORE_OFFSET
-	
-	co2_vals = [raw_metrics[t]['total_co2'] for t in teams]
-	min_co2, max_co2 = min(co2_vals), max(co2_vals)
-	for team in teams:
-		if max_co2 > min_co2:
-			ecology = 1000 * (max_co2 - raw_metrics[team]['total_co2']) / (max_co2 - min_co2)
-		else:
-			ecology = 1000
-		final_scores.setdefault(team, {})['ecology'] = apply_offset(ecology)
-	
-	profits = [raw_metrics[t]['total_profit'] for t in teams]
-	min_profit, max_profit = min(profits), max(profits)
-	for team in teams:
-		if max_profit > min_profit:
-			finance = 1000 * (raw_metrics[team]['total_profit'] - min_profit) / (max_profit - min_profit)
-		else:
-			finance = 1000
-		final_scores[team]['finance'] = apply_offset(finance)
-		
-	for team in teams:
-		stability = np.mean(raw_metrics[team]['round_stabilities']) * 10
-		final_scores[team]['stability'] = apply_offset(stability)
-		
-	for team in teams:
-		base_popularity = np.mean(raw_metrics[team]['round_popularities']) * 1000
-		building_bonus = building_consumptions.get(team, 0) * POPULARITY_PER_MWH
-		popularity = base_popularity + building_bonus
-		final_scores[team]['popularity'] = apply_offset(popularity)
-	
-	return final_scores
+	return scores
 
 
 if __name__ == "__main__":
-	building_consumptions = {
-		"Team A": 500,
-		"Team B": 600,
-		"Team C": 450,
-		"Team D": 700,
-		"Team E": 750
-	}
-	
 	history = [
 		# --- Round 1 ---
 		{
@@ -141,7 +235,7 @@ if __name__ == "__main__":
 		},
 		# --- Round 3 ---
 		{
-			"Team A": {'productions': [(Power.NUCLEAR, 1500), (Power.WIND, 500), (Power.PHOTOVOLTAIC, 100)], 'total_consumption': 2000},
+			"Team A": {'productions': [(Power.NUCLEAR, 1500), (Power.WIND, 500), (Power.PHOTOVOLTAIC, 10)], 'total_consumption': 2000},
 			"Team B": {'productions': [(Power.COAL, 1300), (Power.GAS, 900)], 'total_consumption': 2200},
 			"Team C": {'productions': [(Power.NUCLEAR, 900), (Power.GAS, 500), (Power.WIND, 300)], 'total_consumption': 1700},
 			"Team D": {'productions': [(Power.WATER, 2500), (Power.GAS, 100)], 'total_consumption': 2400}, # Demand exceeds hydro
@@ -205,6 +299,6 @@ if __name__ == "__main__":
 		},
 	]
 	
-	final_scores = calculate_final_scores(history, building_consumptions)
-	
-	print(json.dumps(final_scores, indent=4))
+	final_scores = calculate_final_scores(history)
+
+	print(f"fs: {final_scores}")

@@ -4,14 +4,6 @@ import numpy as np
 import json
 import matplotlib.pyplot as plt
 
-building_consumptions = {
-	"Team A": 500,
-	"Team B": 600,
-	"Team C": 450,
-	"Team D": 700,
-	"Team E": 750
-}
-
 history = [
 	# --- Round 1 ---
 	{
@@ -95,31 +87,41 @@ history = [
 	},
 ]
 
-final_scores = calculate_final_scores(history, building_consumptions)
+final_scores = calculate_final_scores(history)
 
-print(json.dumps(final_scores, indent=4))
-
+# Prepare data for plotting
 teams = list(final_scores.keys())
-factors = list(final_scores[teams[0]].keys())
+factors = ["eco", "fin", "emx", "pop"]  # Use the keys from get_scores
 factor_labels = {
-	"ecology": "Ekologie",
-	"finance": "Finance",
-	"stability": "Energetický mix",
-	"popularity": "Popularita"
+	"eco": "Ekologie",
+	"fin": "Finance",
+	"emx": "Energetický mix",
+	"pop": "Popularita"
 }
 
 team_count = len(teams)
 factor_count = len(factors)
 x = np.arange(team_count)
-width = 0.15
+width = 0.18
 colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
 
 fig, ax = plt.subplots(figsize=(12, 8))
 
+bar_containers = []
 for i, factor in enumerate(factors):
 	values = [final_scores[team][factor] for team in teams]
 	offset = width * (i - (factor_count - 1) / 2)
-	rects = ax.bar(x + offset, values, width, label=factor_labels[factor], color=colors[i % len(colors)])
+	bars = ax.bar(x + offset, values, width, label=factor_labels[factor], color=colors[i % len(colors)])
+	bar_containers.append(bars)
+
+	# Add value labels to each bar
+	for bar in bars:
+		height = bar.get_height()
+		ax.annotate(f'{height:.1f}',
+					xy=(bar.get_x() + bar.get_width() / 2, height),
+					xytext=(0, 3),  # 3 points vertical offset
+					textcoords="offset points",
+					ha='center', va='bottom', fontsize=9)
 
 ax.set_ylabel('Skóre')
 ax.set_title('Finální skóre týmů podle faktorů')

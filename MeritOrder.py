@@ -1,4 +1,5 @@
 from enum import Enum
+
 from typing import List, Tuple
 import numpy as np
 
@@ -10,6 +11,7 @@ class Power(Enum):
 	WATER_STORAGE = 4,
 	WIND = 5,
 	PHOTOVOLTAIC = 6,
+	BATTERY = 7
 
 class MeritOrder:
 	def __init__(self, prices: dict[Power, float], productions: List[Tuple[Power, float]], total_consumption: float):
@@ -25,6 +27,7 @@ class MeritOrder:
 			Power.WATER_STORAGE: 0,
 			Power.WIND: 0,
 			Power.PHOTOVOLTAIC: 0,
+			Power.BATTERY: 0,
 		}
 
 		self.derating = {
@@ -35,6 +38,7 @@ class MeritOrder:
 			Power.WATER_STORAGE: 41,
 			Power.WIND: 7.3,
 			Power.PHOTOVOLTAIC: 2.7,
+			Power.BATTERY: 0.0,
 		}
 
 	def getPrice(self):
@@ -85,6 +89,28 @@ class MeritOrder:
 				pp_operating_cost = pp_power * pp_price
 
 				total += pp_selling_cost - pp_operating_cost #profit for powerplant
+
+		return total
+	
+	def getTotalExpenses(self):
+		cmsm = np.cumsum(self.sorted_productions[:, 1])
+
+		total = 0
+
+		for idx, el in enumerate(cmsm):
+			if el >= self.total_consumption:
+				pp_type, _ = self.sorted_productions[idx]
+
+				production = self.total_consumption - cmsm[idx - 1] #the previous cumsum element
+
+				total += production * self.prices[pp_type]
+
+				break
+
+			else:
+				pp_type, pp_power = self.sorted_productions[idx]
+
+				total += pp_power * self.prices[pp_type]
 
 		return total
 	
@@ -152,6 +178,7 @@ if __name__ == "__main__":
 		Power.WATER_STORAGE: 0,
 		Power.WIND: 0,
 		Power.PHOTOVOLTAIC: 0,
+		Power.BATTERY: 0,
 	}
 
 	productions = [
